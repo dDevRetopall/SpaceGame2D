@@ -1,0 +1,89 @@
+Hacer motores contrarios al frenado (Blancos con degradado)--->
+Degradado brakeMotor terminar clase 
+Hacer clase basica de motor- clase motorImpulso y clase motorFrenado(BrakeMotor).
+Motor renado color blanco
+Editar sistema de motores
+Lineas : 6560 .64 clases sin imports cntados( aprox. 2000 lineas+)
+
+	public static void metodoRecursivo(Pixel p, BufferedImage bb, ArrayList<Pixel> pixeles, int posFigura) {
+		int pos = p.getY() * bb.getWidth() + p.getX();
+		int xMayor = p.getY() * bb.getWidth() + p.getX() + 1;
+		int yMayor = (p.getY() + 1) * bb.getWidth() + p.getX();
+		int xMenor = p.getY() * bb.getWidth() + p.getX() - 1;
+		int yMenor = (p.getY() - 1) * bb.getWidth() + p.getX();
+		pixelesDetectados.set(pos, new Pixel(p.getX(), p.getY(), Color.WHITE, 1));
+		if (xMayor <= pixeles.size()) {
+
+			if (pixeles.get(xMayor).getStatus() == 1 && pixelesDetectados.get(pos).getStatus() == 0) {
+				pixelesDetectados.set(pos, new Pixel(p.getX(), p.getY(), Color.WHITE, 1));
+				pp.editPixel(p.getX(), p.getY(), pos);
+				if (WidthFigura < (pixeles.get(xMayor).getX() - xFigura)) {
+					WidthFigura = (pixeles.get(xMayor).getX() - xFigura);
+					editFiguras(posFigura);
+				}
+				if (Constants.seeImagetreatmentReal) {
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				metodoRecursivo(pixeles.get(xMayor), bb, pixeles, posFigura);
+
+			}
+		}
+
+		if (yMayor <= pixeles.size()) {
+			if (pixeles.get(yMayor).getStatus() == 1 && pixelesDetectados.get(pos).getStatus() == 0) {
+				pixelesDetectados.set(pos, new Pixel(p.getX(), p.getY(), Color.WHITE, 1));
+				pp.editPixel(p.getX(), p.getY(), pos);
+
+				if (HeightFigura < (pixeles.get(yMayor).getY() - yFigura)) {
+					HeightFigura = (pixeles.get(yMayor).getY() - yFigura);
+					editFiguras(posFigura);
+
+				}
+				if (Constants.seeImagetreatmentReal) {
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				metodoRecursivo(pixeles.get(yMayor), bb, pixeles, posFigura);
+			}
+		}
+		if (yMenor <= pixeles.size()) {
+			if (yMenor >= 0) {
+				if (pixeles.get(yMenor).getStatus() == 1 && pixelesDetectados.get(pos).getStatus() == 0) {
+					pixelesDetectados.set(pos, new Pixel(p.getX(), p.getY(), Color.WHITE, 1));
+					pp.editPixel(p.getX(), p.getY(), pos);
+					if (p.getX() < (xFigura)) {
+						xFigura = p.getX();
+
+						WidthFigura += 1;
+						editFiguras(posFigura);
+					}
+					funcionRecursiva(pixeles.get(yMenor), bb, pixeles, posFigura);
+				}
+			}
+		}
+		if (xMenor <= pixeles.size()) {
+			if (xMenor >= 0) {
+				if (pixeles.get(xMenor).getStatus() == 1 && pixelesDetectados.get(pos).getStatus() == 0) {
+					pixelesDetectados.set(pos, new Pixel(p.getX(), p.getY(), Color.WHITE, 1));
+					if (p.getY() < (yFigura)) {
+						yFigura = p.getY();
+						HeightFigura += 1;
+						editFiguras(posFigura);
+					}
+
+					funcionRecursiva(pixeles.get(xMenor), bb, pixeles, posFigura);
+				}
+			}
+		}
+	}

@@ -1,0 +1,45 @@
+Lenguaje de programación dbg
+Formato 
+Abrir con un interprete de texto
+Archivo tipo: "Nombre".dbg
+Funcionamiento
+Inicializacion de un objeto
+
+
+(Nombre del objeto) {
+	
+
+}
+
+Atributos de un objeto
+
+(Nombre atributo) : (valor del atributo) ;
+
+
+Nota: no vale cualquier atributo. Mirar los del código. Cada atributo tiene un tipo de valor (int,float, String)
+Siempre al finalizar una sentencia que no sea inicializacion de objeto se debe poner ;
+Ejemplo
+escudo{
+	tiempoDeReactivacion=1500;
+	path="hola.jpg";
+	id=1;
+	probability=0.8;
+}
+
+Para nombrar al tipo de archivo dependiendo de el tipo de inicializaciones que sean
+se pondra:
+
+*(nombre de clase);
+
+Nombres:
+resources
+consumibles
+weapons
+
+
+//Beta not do it yet
+Si un item tiene una funcion programable se designara un atributo de class con el nombre de la clase que la caracteriza y otro atributo con su funcion cuando se presiona la E para usar.
+
+class: bala.java;
+function: shoot();
+
