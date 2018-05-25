@@ -8,12 +8,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import graphics.shooting.Bomba;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class InfoBombs extends JPanel{
 	ArrayList<PanelBomb>paneles = new ArrayList<>();
 	public InfoBombs() {
-		this.setBounds(10,Main.getVentana().screenSize.height/2-200,200,500);
+		this.setBounds(10,GameHandler.getVentana().screenSize.height/2-200,200,500);
 		this.setLayout(new GridLayout(5, 1));
 		this.setOpaque(false);
 		

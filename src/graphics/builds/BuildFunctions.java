@@ -12,7 +12,7 @@ import java.awt.geom.Ellipse2D;
 import constants.Constants;
 import ia.IAGenerator;
 import items.Item;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import mapGenerator.Vec2;
 import vector.OperacionesVectores;
 import vector.Vector;
@@ -26,7 +26,7 @@ public class BuildFunctions {
 		int resY = Math
 				.round(((y + IAGenerator.mainPlayer.getY() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks));
 		if (hayLadrillo(resX, resY)) {
-			Main.getVentana().getPanelActual().changeMessage("There is a block there");
+			GameHandler.getVentana().getPanelActual().changeMessage("There is a block there");
 
 		} else {
 			Vector v = OperacionesVectores.generarVector(
@@ -35,15 +35,15 @@ public class BuildFunctions {
 					resX * Constants.sizeBlocks, resY * Constants.sizeBlocks);
 			if (OperacionesVectores.moduloVector(v) >= Constants.maxDiameter / 2
 					|| OperacionesVectores.moduloVector(v) <= Constants.minDiameter / 2) {
-				Main.getVentana().getPanelActual().changeMessage("The block is not in the suggested area");
+				GameHandler.getVentana().getPanelActual().changeMessage("The block is not in the suggested area");
 			} else {
 				if (hayItem((resX) * Constants.sizeBlocks, (resY) * Constants.sizeBlocks)) {
-					Main.getVentana().getPanelActual().changeMessage("There is an item in that area");
+					GameHandler.getVentana().getPanelActual().changeMessage("There is an item in that area");
 				} else {
-					Main.getVentana().getPanelActual().ladrillos.add(new LadrilloConColision(resX * Constants.sizeBlocks, resY * Constants.sizeBlocks,
+					GameHandler.getVentana().getPanelActual().ladrillos.add(new LadrilloConColision(resX * Constants.sizeBlocks, resY * Constants.sizeBlocks,
 							Color.GRAY, true, new Vec2(resX, resY, Color.GRAY, false)));
-					Main.getVentana().getPanelActual().ladrillosMapa.set(resY * (Constants.widthMap) + resX,
-							Main.getVentana().getPanelActual().ladrillos.get(Main.getVentana().getPanelActual().ladrillos.size() - 1).getInitialVector());
+					GameHandler.getVentana().getPanelActual().ladrillosMapa.set(resY * (Constants.widthMap) + resX,
+							GameHandler.getVentana().getPanelActual().ladrillos.get(GameHandler.getVentana().getPanelActual().ladrillos.size() - 1).getInitialVector());
 
 				}
 
@@ -54,11 +54,11 @@ public class BuildFunctions {
 
 	public static LadrilloConColision getLadrilloEnMouse() {
 		int resX = (int) (Math.round(
-				((Main.getVentana().getPanelActual().getxMouse() + IAGenerator.mainPlayer.getX() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
+				((GameHandler.getVentana().getPanelActual().getxMouse() + IAGenerator.mainPlayer.getX() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
 		int resY = (int) (Math.round(
-				((Main.getVentana().getPanelActual().getyMouse() + IAGenerator.mainPlayer.getY() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
+				((GameHandler.getVentana().getPanelActual().getyMouse() + IAGenerator.mainPlayer.getY() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
 		
-		for (LadrilloConColision l : Main.getVentana().getPanelActual().ladrillos) {
+		for (LadrilloConColision l : GameHandler.getVentana().getPanelActual().ladrillos) {
 			if (l.getInitialVector().x == resX && l.getInitialVector().y == resY) {
 				return l;
 			}
@@ -69,9 +69,9 @@ public class BuildFunctions {
 	public static  void showPrebuild(Graphics g) {
 		Graphics2D gd = (Graphics2D) g;
 		int resX = (int) (Math.round(
-				((Main.getVentana().getPanelActual().getxMouse() + IAGenerator.mainPlayer.getX() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
+				((GameHandler.getVentana().getPanelActual().getxMouse() + IAGenerator.mainPlayer.getX() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
 		int resY = (int) (Math.round(
-				((Main.getVentana().getPanelActual().getyMouse() + IAGenerator.mainPlayer.getY() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
+				((GameHandler.getVentana().getPanelActual().getyMouse() + IAGenerator.mainPlayer.getY() - Constants.sizeBlocks / 2) / (float) Constants.sizeBlocks)));
 		g.setColor(Color.WHITE);
 
 		if (hayLadrillo(resX, resY)) {
@@ -81,11 +81,11 @@ public class BuildFunctions {
 
 			if (lc != null && lc.isBuilding()) {
 
-				Main.getVentana().getPanelActual().getBuildPanel().putRemoveMessage(true);
+				GameHandler.getVentana().getPanelActual().getBuildPanel().putRemoveMessage(true);
 			}
 
 		} else {
-			Main.getVentana().getPanelActual().getBuildPanel().putRemoveMessage(false);
+			GameHandler.getVentana().getPanelActual().getBuildPanel().putRemoveMessage(false);
 			Vector v = OperacionesVectores.generarVector(
 					IAGenerator.mainPlayer.getX() + IAGenerator.mainPlayer.realXPlayerCoordinate,
 					IAGenerator.mainPlayer.getY() + IAGenerator.mainPlayer.realYPlayerCoordinate,
@@ -122,7 +122,7 @@ public class BuildFunctions {
 	}
 
 	public static boolean hayLadrillo(int x, int y) {
-		for (Ladrillo l : Main.getVentana().getPanelActual().ladrillos) {
+		for (Ladrillo l : GameHandler.getVentana().getPanelActual().ladrillos) {
 			if (l.getInitialVector().x == x && l.getInitialVector().y == y) {
 				return true;
 			}
@@ -133,7 +133,7 @@ public class BuildFunctions {
 
 	public  static boolean hayItem(int x, int y, Graphics g) {
 
-		for (Item i : Main.getVentana().getPanelActual().getItemsHandler().getItems()) {
+		for (Item i : GameHandler.getVentana().getPanelActual().getItemsHandler().getItems()) {
 
 			if (i.getX() + i.getI().getWidth(null) / 2 >= x && i.getY() + i.getI().getHeight(null) / 2 >= y
 					&& i.getX() + i.getI().getWidth(null) / 2 < x + Constants.sizeBlocks
@@ -147,7 +147,7 @@ public class BuildFunctions {
 
 	public static boolean hayItem(int x, int y) {
 
-		for (Item i : Main.getVentana().getPanelActual().getItemsHandler().getItems()) {
+		for (Item i : GameHandler.getVentana().getPanelActual().getItemsHandler().getItems()) {
 
 			if (i.getX() + i.getI().getWidth(null) / 2 >= x && i.getY() + i.getI().getHeight(null) / 2 >= y
 					&& i.getX() + i.getI().getWidth(null) / 2 < x + Constants.sizeBlocks

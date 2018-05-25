@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JProgressBar;
 
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class MainProgressBar extends JProgressBar {
 	private int value = 100;
@@ -76,7 +76,7 @@ public class MainProgressBar extends JProgressBar {
 	public boolean setFullBar() {
 
 		if (this.value >= 100) {
-			Main.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
+			GameHandler.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
 			return false;
 		} else {
 			this.value = 100;
@@ -95,7 +95,7 @@ public class MainProgressBar extends JProgressBar {
 		if (this.value + value > 100) {
 
 			if (this.value >= 100) {
-				Main.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
+				GameHandler.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
 				return false;
 			}
 		}
@@ -106,7 +106,7 @@ public class MainProgressBar extends JProgressBar {
 		if (this.value + value > 100) {
 
 			if (this.value >= 100) {
-				Main.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
+				GameHandler.getVentana().getPanelActual().changeMessage("The " + name2 + " bar is full");
 				return false;
 			}
 			editValue(100);

@@ -14,7 +14,7 @@ import graphics.shooting.DisparoEspecial;
 import graphics.shooting.Recharger;
 import gui.Button;
 import gui.ProgressBar;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Status;
 import juegoEspacio.Ventana;
 
@@ -61,7 +61,7 @@ public class Player {
 		this.height = height;
 		radio = width / 2;
 
-		Main.getVentana();
+		GameHandler.getVentana();
 		realXPlayerCoordinate = Ventana.centroXPantalla - this.width / 2;
 		realYPlayerCoordinate = Ventana.centroYPantalla - this.height / 2;
 		
@@ -175,16 +175,16 @@ public class Player {
 
 		if (!muerto &&!completed) {
 			if (this.arriba && motors.getMotorDown().isMotorHot()) {
-				Main.getVentana().getPanelActual().changeMessage("Motor superior caliente");
+				GameHandler.getVentana().getPanelActual().changeMessage("Motor superior caliente");
 			}
 			if (this.abajo && motors.getMotorUp().isMotorHot()) {
-				Main.getVentana().getPanelActual().changeMessage("Motor inferior caliente");
+				GameHandler.getVentana().getPanelActual().changeMessage("Motor inferior caliente");
 			}
 			if (this.izquierda && motors.getMotorRight().isMotorHot()) {
-				Main.getVentana().getPanelActual().changeMessage("Motor izquierdo caliente");
+				GameHandler.getVentana().getPanelActual().changeMessage("Motor izquierdo caliente");
 			}
 			if (this.derecha && motors.getMotorLeft().isMotorHot()) {
-				Main.getVentana().getPanelActual().changeMessage("Motor derecho caliente");
+				GameHandler.getVentana().getPanelActual().changeMessage("Motor derecho caliente");
 			}
 			
 			if (this.arriba && !motors.getMotorDown().isMotorHot()) {

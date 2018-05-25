@@ -1,6 +1,14 @@
 package proposiciones;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import constants.Constants;
+import utils.imageUtils.ImageUtils;
 
 public class ItemId {
 	private String path;
@@ -19,6 +27,9 @@ public class ItemId {
 	private boolean isMaterial;
 	private int maxStacks;
 	private int initialQuantity;
+	Image i;
+	Image initialImage;
+	ImageUtils iu = new ImageUtils();
 	public ItemId(String name,String path,int shieldIncreaseValue,int healthIncreaseValue,float probability,int countDown,int id,int widthImage,int heightImage,int quality,int maxStacks,int initialQuantity) {
 		this.name = name;
 		this.path = path;
@@ -33,6 +44,7 @@ public class ItemId {
 		this.maxStacks = maxStacks;
 		this.initialQuantity = initialQuantity;
 		this.isWeapon=false;
+		this.setImage(path);
 		
 	}
 	public ItemId(String name,String path,boolean isMaterial,float probability,int id,int widthImage,int heightImage,int quality,int incrementMaterial,int maxStacks) {
@@ -48,8 +60,28 @@ public class ItemId {
 		this.quality = quality;
 		this.name = name;
 		this.incrementMaterial = incrementMaterial;
+		this.setImage(path);
 	}
 	
+	
+	public Image getImage() {
+		return i;
+	}
+	public void setImage(String path) {
+		path=Constants.imagesPath+path;
+		BufferedImage bf = iu.getBufferedImage(path);
+		try {
+			initialImage = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		i = ImageUtils.scale(bf, getWidthImage(), getHeightImage());
+	}
+	
+	public Image getInitialImage() {
+		return initialImage;
+	}
 	public int getInitialQuantity() {
 		return initialQuantity;
 	}

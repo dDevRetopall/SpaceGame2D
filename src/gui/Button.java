@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 
 import constants.Constants;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.PanelDibujo;
 
 public class Button extends JButton {
@@ -65,10 +65,10 @@ public class Button extends JButton {
 				
 				IAGenerator.characters.remove(IAGenerator.mainPlayer);
 				
-				Main.getVentana().getPanelActual().resetElements();
-				Main.getVentana().getPanelActual().inicializarPartida();
-				Main.getVentana().getPanelActual().getPanelLife().restart();
-				Main.getVentana().requestFocus();
+				GameHandler.getVentana().getPanelActual().resetElements();
+				GameHandler.getVentana().getPanelActual().inicializarPartida();
+				GameHandler.getVentana().getPanelActual().getPanelLife().restart();
+				GameHandler.getVentana().requestFocus();
 				
 				
 			}

@@ -19,7 +19,7 @@ import gui.ProgressBar;
 import ia.Engine;
 import ia.IAGenerator;
 import ia.Player;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import vector.OperacionesVectores;
 import vector.Vector;
 
@@ -57,10 +57,10 @@ public class Bomba {
 		this.i = 0;
 		initialTime = System.currentTimeMillis();
 		hp = new HealthPanel((int) x, (int) (y), true);
-		Main.getVentana().getPanelActual().add(hp);
-		Main.getVentana().getPanelActual().updateUI();
+		GameHandler.getVentana().getPanelActual().add(hp);
+		GameHandler.getVentana().getPanelActual().updateUI();
 
-		id = Main.getVentana().getPanelActual().getInfoBombsPanel().addBombEntity(this);
+		id = GameHandler.getVentana().getPanelActual().getInfoBombsPanel().addBombEntity(this);
 
 	}
 
@@ -73,7 +73,7 @@ public class Bomba {
 		}
 		if (System.currentTimeMillis() - initialTime >= 2000) {
 			if (!detonable) {
-				Main.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id).getL2()
+				GameHandler.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id).getL2()
 						.setText("DETECTING ENEMIES");
 				detonable = true;
 				hp.setProgressIndeterminate(false);
@@ -90,11 +90,11 @@ public class Bomba {
 			double v2 = OperacionesVectores.moduloVector(v);
 			if (v2 < Constants.ratio) {
 				Engine.fuegosArtificiales.add(new FuegoArtificial((x), (y), Constants.colorBomb, 4, 2000));
-				Main.getVentana().getPanelActual().getInfoBombsPanel()
-						.remove(Main.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
+				GameHandler.getVentana().getPanelActual().getInfoBombsPanel()
+						.remove(GameHandler.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
 
-				Main.getVentana().getPanelActual().remove(hp);
-				Main.getVentana().getPanelActual().updateUI();
+				GameHandler.getVentana().getPanelActual().remove(hp);
+				GameHandler.getVentana().getPanelActual().updateUI();
 
 				return true;
 			} else {
@@ -117,11 +117,11 @@ public class Bomba {
 	// if (v2 < Constants.ratio) {
 	// Engine.fuegosArtificiales.add(new FuegoArtificial((x), (y),
 	// Constants.colorBomb, 4, 2000));
-	// Main.getVentana().getPanelActual().getInfoBombsPanel()
-	// .remove(Main.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
+	// GameHandler.getVentana().getPanelActual().getInfoBombsPanel()
+	// .remove(GameHandler.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
 	//
-	// Main.getVentana().getPanelActual().remove(hp);
-	// Main.getVentana().getPanelActual().updateUI();
+	// GameHandler.getVentana().getPanelActual().remove(hp);
+	// GameHandler.getVentana().getPanelActual().updateUI();
 	//
 	// return true;
 	// } else {
@@ -136,7 +136,7 @@ public class Bomba {
 
 	public void detonarManualmente() {
 		
-		for (LadrilloConColision l : Main.getVentana().getPanelActual().ladrillos) {
+		for (LadrilloConColision l : GameHandler.getVentana().getPanelActual().ladrillos) {
 		
 			Vector v = OperacionesVectores.generarVector(
 					
@@ -150,11 +150,11 @@ public class Bomba {
 			}
 		}
 		Engine.fuegosArtificiales.add(new FuegoArtificial((x), (y), Constants.colorBomb, 4, 2000));
-		Main.getVentana().getPanelActual().getInfoBombsPanel()
-				.remove(Main.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
+		GameHandler.getVentana().getPanelActual().getInfoBombsPanel()
+				.remove(GameHandler.getVentana().getPanelActual().getInfoBombsPanel().getPaneles().get(id));
 
-		Main.getVentana().getPanelActual().remove(hp);
-		Main.getVentana().getPanelActual().updateUI();
+		GameHandler.getVentana().getPanelActual().remove(hp);
+		GameHandler.getVentana().getPanelActual().updateUI();
 	}
 
 	public boolean checkChoqueConBala() {

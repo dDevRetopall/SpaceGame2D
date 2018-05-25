@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import javax.sound.midi.MidiDevice.Info;
 
 import constants.Constants;
+import graphics.builds.LadrilloConColision;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import proposiciones.ItemId;
 import utils.dataUtils.Probabilidad;
 
@@ -32,7 +33,12 @@ public class ItemsHandler {
 			System.out.println(Constants.imagesPath + InfoStore.items.get(id).getPath());
 		}
 		ItemId i = InfoStore.items.get(id);
-		items.add(new Item(x, y, i.getWidthImage(), i.getHeightImage(), i.getId(), i.getPath(),i.getInitialQuantity()));
+		if(Constants.useFileItemsSize) {
+			items.add(new Item(x, y,i.getWidthImage(),i.getHeightImage(), i.getId(), i.getPath(),i.getInitialQuantity()));
+		}else {
+			items.add(new Item(x, y,Constants.sizeBlocks/2,Constants.sizeBlocks/2, i.getId(), i.getPath(),i.getInitialQuantity()));
+		}
+		
 
 	}
 
@@ -43,23 +49,39 @@ public class ItemsHandler {
 
 	public void leavedItem() {
 		pendingToTake = null;
-		Main.getVentana().getPanelActual().getItemStore().putMessageToUse = false;
+		GameHandler.getVentana().getPanelActual().getItemStore().putMessageToUse = false;
 	}
 	public void increaseMaterial(ItemId ii,Item pending) {
-		Main.getVentana().getPanelActual().getBuildPanel().getStuffPanel().addQuantity(ii.getId(), ii.getIncrementMaterial());
-		Main.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(pending);
+		GameHandler.getVentana().getPanelActual().getBuildPanel().getStuffPanel().addQuantity(ii.getId(), ii.getIncrementMaterial());
+		GameHandler.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(pending);
 	}
 	public void renderItems(Graphics g) {
 
 		for (Item i : items) {
+			if(itemEnRangoJugador(i)) {
 			if (Constants.DEBUG) {
 				g.setColor(Color.red);
 				g.drawRect((int) (i.getX() - IAGenerator.mainPlayer.getX()),
 						(int) (i.getY() - IAGenerator.mainPlayer.getY()), 10, 10);
 			}
 			i.renderImage(g, -IAGenerator.mainPlayer.getX(), -IAGenerator.mainPlayer.getY());
+			}
 		}
 		carryOutItemFunctions();
+		
+
+	}
+	public static boolean itemEnRangoJugador(Item i) {
+		if (i.getX() + -IAGenerator.mainPlayer.getX() > (float) GameHandler.getVentana().screenSize.width
+
+				|| i.getX() + -IAGenerator.mainPlayer.getX() + i.getWidth() < 0.0f
+				|| i.getY()+ -IAGenerator.mainPlayer.getY() > (float) GameHandler.getVentana().screenSize.height
+				||i.getY()+ -IAGenerator.mainPlayer.getY() + i.getHeight() < 0.0f) {
+			return false;
+		} else {
+			return true;
+
+		}
 
 	}
 	
@@ -70,7 +92,7 @@ public class ItemsHandler {
 		if(ii.isMaterial()) {
 			increaseMaterial(ii,pendingToTake);
 		}else {
-		Main.getVentana().getPanelActual().getItemStore().addItem(pendingToTake);
+		GameHandler.getVentana().getPanelActual().getItemStore().addItem(pendingToTake);
 		}
 		pendingToTake=null;
 		}	
@@ -95,11 +117,11 @@ public class ItemsHandler {
 			if(ii.isMaterial()) {
 				increaseMaterial(ii,pendingToTake);
 			}
-			Main.getVentana().getPanelActual().getItemStore().putMessageToGet(true,
+			GameHandler.getVentana().getPanelActual().getItemStore().putMessageToGet(true,
 					(int) pendingToTake.getX(IAGenerator.mainPlayer), (int) pendingToTake.getY(IAGenerator.mainPlayer));
 		} else {
 			pendingToTake = null;
-			Main.getVentana().getPanelActual().getItemStore().putMessageToGet(false, 0, 0);
+			GameHandler.getVentana().getPanelActual().getItemStore().putMessageToGet(false, 0, 0);
 		}
 		for (Item i : itemsToRemove) {
 			getItems().remove(i);

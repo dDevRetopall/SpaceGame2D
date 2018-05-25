@@ -233,7 +233,7 @@ public class Ventana extends JFrame {
 						}
 
 						if (e.getKeyCode() == KeyEvent.VK_1) {
-							if (Main.getVentana().getPanelActual().getItemStore().isSelected(0)) {
+							if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(0)) {
 								falseAllSelections();
 							} else {
 								changeSelection(0);
@@ -241,7 +241,7 @@ public class Ventana extends JFrame {
 							checkSettingUseMessage(0);
 						}
 						if (e.getKeyCode() == KeyEvent.VK_2) {
-							if (Main.getVentana().getPanelActual().getItemStore().isSelected(1)) {
+							if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(1)) {
 								falseAllSelections();
 							} else {
 								changeSelection(1);
@@ -249,7 +249,7 @@ public class Ventana extends JFrame {
 							checkSettingUseMessage(1);
 						}
 						if (e.getKeyCode() == KeyEvent.VK_3) {
-							if (Main.getVentana().getPanelActual().getItemStore().isSelected(2)) {
+							if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(2)) {
 								falseAllSelections();
 							} else {
 								changeSelection(2);
@@ -257,7 +257,7 @@ public class Ventana extends JFrame {
 							checkSettingUseMessage(2);
 						}
 						if (e.getKeyCode() == KeyEvent.VK_4) {
-							if (Main.getVentana().getPanelActual().getItemStore().isSelected(3)) {
+							if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(3)) {
 								falseAllSelections();
 							} else {
 								changeSelection(3);
@@ -265,7 +265,7 @@ public class Ventana extends JFrame {
 							checkSettingUseMessage(3);
 						}
 						if (e.getKeyCode() == KeyEvent.VK_5) {
-							if (Main.getVentana().getPanelActual().getItemStore().isSelected(4)) {
+							if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(4)) {
 								falseAllSelections();
 							} else {
 								changeSelection(4);
@@ -274,19 +274,19 @@ public class Ventana extends JFrame {
 							checkSettingUseMessage(4);
 						}
 						if (e.getKeyCode() == KeyEvent.VK_E) {
-							Main.getVentana().getPanelActual().getItemsHandler().takeItem();
+							GameHandler.getVentana().getPanelActual().getItemsHandler().takeItem();
 
 						}
 						if (e.getKeyCode() == KeyEvent.VK_Q) {
 
 							if (building) {
-								Main.getVentana().getPanelActual().remove(Main.getVentana().getPanelActual().bp);
+								GameHandler.getVentana().getPanelActual().remove(GameHandler.getVentana().getPanelActual().bp);
 								building = false;
 							} else {
-								Main.getVentana().getPanelActual().add(Main.getVentana().getPanelActual().bp);
+								GameHandler.getVentana().getPanelActual().add(GameHandler.getVentana().getPanelActual().bp);
 								building = true;
 							}
-							Main.getVentana().getPanelActual().updateUI();
+							GameHandler.getVentana().getPanelActual().updateUI();
 
 						}
 						if (e.getKeyCode() == KeyEvent.VK_R) {
@@ -299,26 +299,26 @@ public class Ventana extends JFrame {
 									Engine.updateLadrillo(lc);
 								}
 							} else {
-								int pos = Main.getVentana().getPanelActual().getItemStore().getPosSelected();
+								int pos = GameHandler.getVentana().getPanelActual().getItemStore().getPosSelected();
 								if (pos != -1) {
-									if (Main.getVentana().getPanelActual().getItemStore().isthereItemInProgress()) {
-										Main.getVentana().getPanelActual()
+									if (GameHandler.getVentana().getPanelActual().getItemStore().isthereItemInProgress()) {
+										GameHandler.getVentana().getPanelActual()
 												.changeMessage("There is already an item in progress");
-									} else if (!Main.getVentana().getPanelActual().getItemStore().isEmpty(pos)) {
-										Main.getVentana().getPanelActual().getItemStore().getSlot(pos).starCount();
+									} else if (!GameHandler.getVentana().getPanelActual().getItemStore().isEmpty(pos)) {
+										GameHandler.getVentana().getPanelActual().getItemStore().getSlot(pos).starCount();
 										;
 									} else {
-										Main.getVentana().getPanelActual().changeMessage("The slot is empty");
+										GameHandler.getVentana().getPanelActual().changeMessage("The slot is empty");
 									}
 
 								} else {
-									Main.getVentana().getPanelActual().changeMessage("Any slot is selected");
+									GameHandler.getVentana().getPanelActual().changeMessage("Any slot is selected");
 								}
 							}
 
 						}
 						if (e.getKeyCode() == KeyEvent.VK_F) {
-							Main.getVentana().getPanelActual().getItemStore().leaveItemAndReset();
+							GameHandler.getVentana().getPanelActual().getItemStore().leaveItemAndReset();
 						}
 					}
 				}
@@ -333,19 +333,19 @@ public class Ventana extends JFrame {
 					int newPos;
 					if (s > 0) {
 
-						newPos = Main.getVentana().getPanelActual().getItemStore().getPosSelected() + 1;
+						newPos = GameHandler.getVentana().getPanelActual().getItemStore().getPosSelected() + 1;
 						if (newPos > 4) {
 							newPos = 0;
 						}
 
 					} else {
-						newPos = Main.getVentana().getPanelActual().getItemStore().getPosSelected() - 1;
+						newPos = GameHandler.getVentana().getPanelActual().getItemStore().getPosSelected() - 1;
 						if (newPos < 0) {
 							newPos = 4;
 						}
 					}
 
-					if (Main.getVentana().getPanelActual().getItemStore().isSelected(newPos)) {
+					if (GameHandler.getVentana().getPanelActual().getItemStore().isSelected(newPos)) {
 						falseAllSelections();
 					} else {
 						changeSelection(newPos);
@@ -379,31 +379,31 @@ public class Ventana extends JFrame {
 	}
 
 	public void checkSettingUseMessage(int pos) {
-		if (!Main.getVentana().getPanelActual().getItemStore().isEmpty(pos)
-				&& !Main.getVentana().getPanelActual().getItemStore().allUnselected()) {
-			Main.getVentana().getPanelActual().getItemStore().putMessageToUse(true);
+		if (!GameHandler.getVentana().getPanelActual().getItemStore().isEmpty(pos)
+				&& !GameHandler.getVentana().getPanelActual().getItemStore().allUnselected()) {
+			GameHandler.getVentana().getPanelActual().getItemStore().putMessageToUse(true);
 		} else {
-			Main.getVentana().getPanelActual().getItemStore().putMessageToUse(false);
+			GameHandler.getVentana().getPanelActual().getItemStore().putMessageToUse(false);
 		}
 
 	}
 
 	public void changeSelection(int posSelected) {
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 0);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 1);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 2);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 3);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 4);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(true, posSelected);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 0);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 1);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 2);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 3);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 4);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(true, posSelected);
 
 	}
 
 	public void falseAllSelections() {
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 0);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 1);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 2);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 3);
-		Main.getVentana().getPanelActual().getItemStore().setSelected(false, 4);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 0);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 1);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 2);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 3);
+		GameHandler.getVentana().getPanelActual().getItemStore().setSelected(false, 4);
 
 	}
 

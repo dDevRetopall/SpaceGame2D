@@ -19,7 +19,7 @@ import graphics.fireworks.Particula;
 import graphics.fireworks.Punto;
 import graphics.shooting.Bala;
 import graphics.shooting.DisparoEspecial;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Ventana;
 import vector.Vector;
 
@@ -37,7 +37,7 @@ public class Engine {
 		int contador = 0;
 		int contadorTotal = 0;
 
-		for (LadrilloConColision l : Main.getVentana().getPanelActual().ladrillos) {
+		for (LadrilloConColision l : GameHandler.getVentana().getPanelActual().ladrillos) {
 			renderDisparos(l);
 			if (!objetoEnRangoJugador(l)) {
 				if (l.isProgressBarVisible()) {
@@ -68,7 +68,7 @@ public class Engine {
 							Color c = l.c;
 							xP = IAGenerator.mainPlayer.realXPlayerCoordinate + IAGenerator.mainPlayer.getWidth() / 2;
 							yP = IAGenerator.mainPlayer.realYPlayerCoordinate + IAGenerator.mainPlayer.getHeight() / 2;
-							Main.getVentana().getPanelActual().getPanelLife().makeDamage(15,
+							GameHandler.getVentana().getPanelActual().getPanelLife().makeDamage(15,
 									new FuegoArtificial(xP, yP, c));
 
 						}
@@ -79,22 +79,22 @@ public class Engine {
 			contadorTotal++;
 
 		}
-		for (Ladrillo l : Main.getVentana().getPanelActual().ladrillosToRemove) {
-			Main.getVentana().getPanelActual().ladrillos.remove(l);
+		for (Ladrillo l : GameHandler.getVentana().getPanelActual().ladrillosToRemove) {
+			GameHandler.getVentana().getPanelActual().ladrillos.remove(l);
 		}
-		Main.getVentana().getPanelActual().ladrillosToRemove
-				.removeAll(Main.getVentana().getPanelActual().ladrillosToRemove);
+		GameHandler.getVentana().getPanelActual().ladrillosToRemove
+				.removeAll(GameHandler.getVentana().getPanelActual().ladrillosToRemove);
 		if (Constants.DEBUG) {
 			System.out.println("Rendered blocks: " + contador + " Total: " + contadorTotal + " Size of blocks Array: "
-					+ Main.getVentana().getPanelActual().ladrillos.size());
+					+ GameHandler.getVentana().getPanelActual().ladrillos.size());
 		}
 	}
 
 	public static boolean objetoEnRangoJugador(LadrilloConColision l) {
-		if (l.x + -IAGenerator.mainPlayer.getX() > (float) Main.getVentana().screenSize.width
+		if (l.x + -IAGenerator.mainPlayer.getX() > (float) GameHandler.getVentana().screenSize.width
 
 				|| l.x + -IAGenerator.mainPlayer.getX() + l.ancho < 0.0f
-				|| l.y + -IAGenerator.mainPlayer.getY() > (float) Main.getVentana().screenSize.height
+				|| l.y + -IAGenerator.mainPlayer.getY() > (float) GameHandler.getVentana().screenSize.height
 				|| l.y + -IAGenerator.mainPlayer.getY() + l.alto < 0.0f) {
 			return false;
 		} else {
@@ -111,8 +111,8 @@ public class Engine {
 				if (lc.getHp().getHealth() <= 0) {
 					lc.putProgressVisible(false);
 
-					Main.getVentana().getPanelActual().ladrillosToRemove.add(lc);
-					Main.getVentana().getPanelActual().ladrillosMapa.remove(lc.getInitialVector());
+					GameHandler.getVentana().getPanelActual().ladrillosToRemove.add(lc);
+					GameHandler.getVentana().getPanelActual().ladrillosMapa.remove(lc.getInitialVector());
 
 					fuegosArtificiales.add(new FuegoArtificial(lc.x + lc.ancho / 2 - IAGenerator.mainPlayer.getX(),
 							lc.y + lc.alto / 2 - IAGenerator.mainPlayer.getY(), lc.c));
@@ -156,8 +156,8 @@ public class Engine {
 						l.getHp().quitHealth(25);
 						if (l.getHp().getHealth() <= 0) {
 							l.putProgressVisible(false);
-							Main.getVentana().getPanelActual().ladrillosToRemove.add(l);
-							Main.getVentana().getPanelActual().ladrillosMapa.remove(l.getInitialVector());
+							GameHandler.getVentana().getPanelActual().ladrillosToRemove.add(l);
+							GameHandler.getVentana().getPanelActual().ladrillosMapa.remove(l.getInitialVector());
 
 						} else {
 							l.putProgressVisible(true);
@@ -175,13 +175,13 @@ public class Engine {
 
 	public static void renderEnemies(Graphics g) {
 		int contador2 = 0, contadorTotal2 = 0;
-		for (Enemigo e : Main.getVentana().getPanelActual().enemigos) {
+		for (Enemigo e : GameHandler.getVentana().getPanelActual().enemigos) {
 			if (e.getX() + -IAGenerator.mainPlayer.getX() - e.limiteDerecho
-					- e.getAncho() > (float) Main.getVentana().screenSize.width
+					- e.getAncho() > (float) GameHandler.getVentana().screenSize.width
 
 					|| e.getX() + -IAGenerator.mainPlayer.getX() + e.getAncho() - e.limiteIzquierdo < 0.0f
 					|| e.getY() + -IAGenerator.mainPlayer.getY()
-							- e.limiteAbajo > (float) Main.getVentana().screenSize.height
+							- e.limiteAbajo > (float) GameHandler.getVentana().screenSize.height
 					|| e.getY() + -IAGenerator.mainPlayer.getY() - e.limiteArriba + e.getAlto() < 0.0f) {
 
 			} else {
@@ -202,7 +202,7 @@ public class Engine {
 						}
 						xP = IAGenerator.mainPlayer.realXPlayerCoordinate + IAGenerator.mainPlayer.getWidth() / 2;
 						yP = IAGenerator.mainPlayer.realYPlayerCoordinate + IAGenerator.mainPlayer.getHeight() / 2;
-						Main.getVentana().getPanelActual().getPanelLife().makeDamage(2, new FuegoArtificial(xP, yP, c));
+						GameHandler.getVentana().getPanelActual().getPanelLife().makeDamage(2, new FuegoArtificial(xP, yP, c));
 
 					}
 				}
@@ -211,7 +211,7 @@ public class Engine {
 		}
 		if (Constants.DEBUG) {
 			System.out.println("Rendered enemies: " + contador2 + " Total: " + contadorTotal2
-					+ " Size of enemies Array: " + Main.getVentana().getPanelActual().enemigos.size());
+					+ " Size of enemies Array: " + GameHandler.getVentana().getPanelActual().enemigos.size());
 		}
 
 	}
@@ -255,15 +255,15 @@ public class Engine {
 						1.0f // 1.0 for bright, 0.0 for black
 				);
 				float xP = (float) ((float) (IAGenerator.mainPlayer.realXPlayerCoordinate
-						+ IAGenerator.mainPlayer.getWidth() / 2f + Main.getVentana().screenSize.width / 2 - 1)
+						+ IAGenerator.mainPlayer.getWidth() / 2f + GameHandler.getVentana().screenSize.width / 2 - 1)
 						* Math.random()
 						+ ((float) (IAGenerator.mainPlayer.realXPlayerCoordinate
-								+ IAGenerator.mainPlayer.getWidth() / 2f - Main.getVentana().screenSize.width / 2)));
+								+ IAGenerator.mainPlayer.getWidth() / 2f - GameHandler.getVentana().screenSize.width / 2)));
 				float yP = (float) ((float) (IAGenerator.mainPlayer.realYPlayerCoordinate
-						+ IAGenerator.mainPlayer.getHeight() / 2f + Main.getVentana().screenSize.height / 2 - 1)
+						+ IAGenerator.mainPlayer.getHeight() / 2f + GameHandler.getVentana().screenSize.height / 2 - 1)
 						* Math.random()
 						+ ((float) (IAGenerator.mainPlayer.realYPlayerCoordinate
-								+ IAGenerator.mainPlayer.getHeight() / 2f - Main.getVentana().screenSize.height / 2)));
+								+ IAGenerator.mainPlayer.getHeight() / 2f - GameHandler.getVentana().screenSize.height / 2)));
 
 				// int xP = IAGenerator.mainPlayer.realXPlayerCoordinate +
 				// IAGenerator.mainPlayer.getWidth() / 2;

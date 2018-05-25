@@ -7,7 +7,7 @@ import constants.Constants;
 import enemigos.Enemigo;
 import enemigos.EnemigoEspecial;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Ventana;
 import mapGenerator.Vec2;
 
@@ -28,15 +28,15 @@ public class Map {
 		int contador = 0;
 		int sizePixels = 2;
 		int sizeEnemies = 1;
-		widthMap = (Main.getVentana().getPanelActual().ladrillosMapa
-				.get(Main.getVentana().getPanelActual().ladrillosMapa.size() - 1).x) * sizePixels + sizePixels;
-		heightMap = (Main.getVentana().getPanelActual().ladrillosMapa
-				.get(Main.getVentana().getPanelActual().ladrillosMapa.size() - 1).y) * sizePixels + sizePixels;
+		widthMap = (GameHandler.getVentana().getPanelActual().ladrillosMapa
+				.get(GameHandler.getVentana().getPanelActual().ladrillosMapa.size() - 1).x) * sizePixels + sizePixels;
+		heightMap = (GameHandler.getVentana().getPanelActual().ladrillosMapa
+				.get(GameHandler.getVentana().getPanelActual().ladrillosMapa.size() - 1).y) * sizePixels + sizePixels;
 		initialX = Ventana.screenSize.width - widthMap - espacio;
 		initialY = espacio;
 		g.setColor(Color.BLACK);
 		g.fillRect(initialX, initialY, widthMap - 2, heightMap - 2);
-		for (Vec2 v : Main.getVentana().getPanelActual().ladrillosMapa) {
+		for (Vec2 v : GameHandler.getVentana().getPanelActual().ladrillosMapa) {
 			g.setColor(v.c);
 			if (v.isEspecial()) {
 				g.fillOval(initialX + v.x * sizePixels - variacionSizeespecial / 2, initialY + v.y * sizePixels,
@@ -62,7 +62,7 @@ public class Map {
 		// if ((IAGenerator.mainPlayer.getX() - Ventana.screenSize.width / 2 < e.getX()
 		// && (IAGenerator.mainPlayer.getX() + Ventana.screenSize.width / 2) >
 		// e.getX())) {
-		for (Enemigo e : Main.getVentana().getPanelActual().enemigos) {
+		for (Enemigo e : GameHandler.getVentana().getPanelActual().enemigos) {
 
 			dibujarEnemigoEnMapa(e, initialX, initialY, sizePixels, widthMap, heightMap, sizeEnemies, g);
 
@@ -77,18 +77,18 @@ public class Map {
 			for (Enemigo eee : ee.hijos) {
 				g.setColor(eee.getC());
 				g.fillRect(
-						(int) (initialX + Main.getVentana().getPanelActual().enemigosMapa.get(e).x
+						(int) (initialX + GameHandler.getVentana().getPanelActual().enemigosMapa.get(e).x
 								+ eee.getAncho() * sizePixels + e.getVx() / widthMap),
-						(int) (initialY + Main.getVentana().getPanelActual().enemigosMapa.get(e).y * sizePixels
+						(int) (initialY + GameHandler.getVentana().getPanelActual().enemigosMapa.get(e).y * sizePixels
 								+ e.getVy() / heightMap),
 						(int) (sizeEnemies), (int) (sizeEnemies));
 			}
 		} else {
 			g.setColor(e.getC());
 			g.fillRect(
-					(int) (initialX + Main.getVentana().getPanelActual().enemigosMapa.get(e).x * sizePixels
+					(int) (initialX + GameHandler.getVentana().getPanelActual().enemigosMapa.get(e).x * sizePixels
 							+ e.getVx() / widthMap),
-					(int) (initialY + Main.getVentana().getPanelActual().enemigosMapa.get(e).y * sizePixels
+					(int) (initialY + GameHandler.getVentana().getPanelActual().enemigosMapa.get(e).y * sizePixels
 							+ e.getVy() / heightMap),
 					(int) (sizeEnemies), (int) (sizeEnemies));
 		}

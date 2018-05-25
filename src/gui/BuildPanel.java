@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import constants.Constants;
 import graphics.shooting.Bomba;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class BuildPanel extends JPanel {
 	private Bomba b;
@@ -33,7 +33,7 @@ public class BuildPanel extends JPanel {
 		
 		
 		pInfo.setLayout(new GridLayout(20,1));
-		this.setBounds(Main.getVentana().screenSize.width-250, 250, 240, 500);
+		this.setBounds(GameHandler.getVentana().screenSize.width-250, 250, 240, 500);
 		JButton button = new JButton("Hola");
 		JButton button2 = new JButton("Hola2");
 	

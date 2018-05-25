@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import constants.Constants;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class ItemsStore {
 	int size = 100;
@@ -37,8 +37,8 @@ public class ItemsStore {
 	}
 
 	public void render(Graphics g) {
-		int startingX = Main.getVentana().screenSize.width - totalSize * size - totalSize * border - rightBorder;
-		int y = Main.getVentana().screenSize.height - size - border;
+		int startingX = GameHandler.getVentana().screenSize.width - totalSize * size - totalSize * border - rightBorder;
+		int y = GameHandler.getVentana().screenSize.height - size - border;
 		totalSize = 5;
 		renderBox(0, g, startingX, y);
 		renderBox(1, g, startingX, y);
@@ -98,8 +98,8 @@ public class ItemsStore {
 	}
 	public void renderDisplayInfoMessage(Graphics g,int pos) {
 		if(slots.get(pos).i!=null) {
-		int yInfo= Main.getVentana().getPanelActual().getPanelLife().getY()-25;
-		int xCenter=Main.getVentana().screenSize.width/2;
+		int yInfo= GameHandler.getVentana().getPanelActual().getPanelLife().getY()-25;
+		int xCenter=GameHandler.getVentana().screenSize.width/2;
 		g.drawImage(slots.get(pos).getItem().getInitialImage(),xCenter+5,yInfo-30 , 40, 40, null);
 		g.setFont(Constants.FONT);
 		g.setColor(new Color(125,125,125,150));
@@ -108,8 +108,8 @@ public class ItemsStore {
 	}
 
 	public void createBox(int pos) {
-		int startingX = Main.getVentana().screenSize.width - totalSize * size - totalSize * border - rightBorder;
-		int y = Main.getVentana().screenSize.height - size - border;
+		int startingX = GameHandler.getVentana().screenSize.width - totalSize * size - totalSize * border - rightBorder;
+		int y = GameHandler.getVentana().screenSize.height - size - border;
 		int startDepPos = startingX + pos * size + border * pos;
 		slots.add(new ImageItem(startDepPos, y, pos, size));
 	}
@@ -143,9 +143,9 @@ public class ItemsStore {
 	}
 
 	public void leaveItem() {
-		ImageItem i = Main.getVentana().getPanelActual().getItemStore().getSelected();
-		if (!Main.getVentana().getPanelActual().getItemStore().allUnselected()
-				&& !Main.getVentana().getPanelActual().getItemStore().isEmpty(i.getPos())) {
+		ImageItem i = GameHandler.getVentana().getPanelActual().getItemStore().getSelected();
+		if (!GameHandler.getVentana().getPanelActual().getItemStore().allUnselected()
+				&& !GameHandler.getVentana().getPanelActual().getItemStore().isEmpty(i.getPos())) {
 
 			Item item = i.getItem();
 			item.setQuantity(i.getQuantity());
@@ -153,16 +153,16 @@ public class ItemsStore {
 			item.changeY(IAGenerator.mainPlayer.getY() + IAGenerator.mainPlayer.realYPlayerCoordinate);
 			item.setInStore(false);
 
-			Main.getVentana().getPanelActual().getItemsHandler().restoreItem(item);
+			GameHandler.getVentana().getPanelActual().getItemsHandler().restoreItem(item);
 
 		}
 
 	}
 
 	public void leaveItemAndReset() {
-		ImageItem i = Main.getVentana().getPanelActual().getItemStore().getSelected();
-		if (!Main.getVentana().getPanelActual().getItemStore().allUnselected()
-				&& !Main.getVentana().getPanelActual().getItemStore().isEmpty(i.getPos())) {
+		ImageItem i = GameHandler.getVentana().getPanelActual().getItemStore().getSelected();
+		if (!GameHandler.getVentana().getPanelActual().getItemStore().allUnselected()
+				&& !GameHandler.getVentana().getPanelActual().getItemStore().isEmpty(i.getPos())) {
 
 			Item item = i.getItem();
 			item.setQuantity(i.getQuantity());
@@ -171,10 +171,10 @@ public class ItemsStore {
 			item.changeX(IAGenerator.mainPlayer.getX() + IAGenerator.mainPlayer.realXPlayerCoordinate);
 			item.changeY(IAGenerator.mainPlayer.getY() + IAGenerator.mainPlayer.realYPlayerCoordinate);
 			item.setInStore(false);
-			Main.getVentana().getPanelActual().getItemsHandler().leavedItem();
+			GameHandler.getVentana().getPanelActual().getItemsHandler().leavedItem();
 
-			Main.getVentana().getPanelActual().getItemsHandler().restoreItem(item);
-			Main.getVentana().getPanelActual().getItemStore().getSlotsToRemove().add(i);
+			GameHandler.getVentana().getPanelActual().getItemsHandler().restoreItem(item);
+			GameHandler.getVentana().getPanelActual().getItemStore().getSlotsToRemove().add(i);
 		}
 
 	}
@@ -183,7 +183,7 @@ public class ItemsStore {
 		slots.get(pos).setI(i.getInitialImage(), i.getId(), i);
 		slots.get(pos).addQuantity(i.getQuantity());
 		
-		Main.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(i);
+		GameHandler.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(i);
 		if (getPosSelected() == pos) {
 			putMessageToUse(true);
 		}
@@ -249,16 +249,16 @@ public class ItemsStore {
 		} else {
 			if (getPosSelected() != -1) {
 				
-				Main.getVentana().getPanelActual().getItemStore().leaveItem();
+				GameHandler.getVentana().getPanelActual().getItemStore().leaveItem();
 				slots.get(getPosSelected()).setQuantity(0);
 				slots.get(getPosSelected()).setI(i.getInitialImage(), i.getId(), i);
 				slots.get(getPosSelected()).addQuantity(i.getQuantity());
-				Main.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(i);
+				GameHandler.getVentana().getPanelActual().getItemsHandler().getItemsToRemove().add(i);
 				putMessageToUse(true);
 				
 			} else {
 				i.setInStore(false);
-				Main.getVentana().getPanelActual().changeMessage("There is no slot selected");
+				GameHandler.getVentana().getPanelActual().changeMessage("There is no slot selected");
 			}
 		}
 

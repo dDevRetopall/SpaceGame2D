@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import constants.Constants;
 import graphics.shooting.Bomba;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class PanelBomb extends JPanel {
 	private Bomba b;
@@ -49,6 +49,8 @@ public class PanelBomb extends JPanel {
 		this.add(l4);
 		this.add(button);
 		this.add(button2);
+		button.setOpaque(false);
+		button2.setOpaque(false);
 		this.setOpaque(false);
 		button.addActionListener(new ActionListener() {
 
@@ -61,10 +63,10 @@ public class PanelBomb extends JPanel {
 					IAGenerator.mainPlayer.getCañon().getBombas().remove(b);
 					
 				} else {
-					Main.getVentana().getPanelActual().changeMessage("La bomba no se puede detonar");
+					GameHandler.getVentana().getPanelActual().changeMessage("La bomba no se puede detonar");
 				}
 				}else {
-					Main.getVentana().getPanelActual().changeMessage("La bomba esta desactivada y es indetectable");
+					GameHandler.getVentana().getPanelActual().changeMessage("La bomba esta desactivada y es indetectable");
 				}
 			}
 		});
@@ -79,7 +81,7 @@ public class PanelBomb extends JPanel {
 					button2.setText("Activar");
 					
 					}else {
-						Main.getVentana().getPanelActual().changeMessage("La bomba se esta configurando");
+						GameHandler.getVentana().getPanelActual().changeMessage("La bomba se esta configurando");
 					}
 
 				} else {

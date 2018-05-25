@@ -14,7 +14,7 @@ import constants.Constants;
 import graphics.fireworks.FuegoArtificial;
 import ia.Engine;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 
 public class PanelLife extends JPanel {
 	int width = 500;
@@ -37,7 +37,7 @@ public class PanelLife extends JPanel {
 		pShield.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(pLife);
-		this.setLocation(Main.getVentana().screenSize.width / 2 - width / 2, Main.getVentana().screenSize.height - 90);
+		this.setLocation(GameHandler.getVentana().screenSize.width / 2 - width / 2, GameHandler.getVentana().screenSize.height - 90);
 		this.setSize(width, 80);
 		this.setOpaque(false);
 		pLife.setOpaque(false);

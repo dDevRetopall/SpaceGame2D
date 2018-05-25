@@ -128,9 +128,10 @@ Turret t = new Turret(500,500,500);
 	}
 
 	public void paint(Graphics g) {
-
+		
 		super.paint(g);
-		if (Main.getVentana().gameScreenEnabled) {
+		
+		if (GameHandler.getVentana().gameScreenEnabled) {
 			render(g);
 		} else {
 
@@ -164,7 +165,7 @@ Turret t = new Turret(500,500,500);
 			key.renderSalida(g, -IAGenerator.mainPlayer.getX(), -IAGenerator.mainPlayer.getY());
 		}
 
-		if (Main.getVentana().building) {
+		if (GameHandler.getVentana().building) {
 
 			BuildFunctions.showPrebuild(g);
 		}
@@ -181,7 +182,7 @@ Turret t = new Turret(500,500,500);
 
 		ih.renderItems(g);
 		is.render(g);
-		if (Main.getVentana().building) {
+		if (GameHandler.getVentana().building) {
 			showBuildMessage("Press Q to deactivate building mode - BETA", g);
 			showMode("Building mode", g);
 		} else {
@@ -200,7 +201,7 @@ Turret t = new Turret(500,500,500);
 
 		} else {
 			b.setVisible(false);
-			Main.getVentana().requestFocus();
+			GameHandler.getVentana().requestFocus();
 		}
 		if (IAGenerator.mainPlayer.completed) {
 			IAGenerator.mainPlayer.putMenu(g, "Has pasado el nivel. Felicidades");
@@ -209,10 +210,10 @@ Turret t = new Turret(500,500,500);
 		} else if (!IAGenerator.mainPlayer.muerto) {
 
 			b.setVisible(false);
-			Main.getVentana().requestFocus();
+			GameHandler.getVentana().requestFocus();
 		} else {
-			Main.getVentana().building = false;
-			Main.getVentana().requestFocus();
+			GameHandler.getVentana().building = false;
+			GameHandler.getVentana().requestFocus();
 		}
 		if (System.currentTimeMillis() - changeMessageTime <= Constants.durationOfWarnings) {
 			triggerMessage(g, mensaje);
@@ -228,7 +229,7 @@ Turret t = new Turret(500,500,500);
 
 	public void resetElements() {
 		restarting = true;
-		Main.getVentana().getPanelActual().getStars().removeAll(Main.getVentana().getPanelActual().getStars());
+		GameHandler.getVentana().getPanelActual().getStars().removeAll(GameHandler.getVentana().getPanelActual().getStars());
 		Engine.finishAnimation();
 		////// si en restart se guarda lo anterior destruido
 		//resetLadrillos();
@@ -238,7 +239,7 @@ Turret t = new Turret(500,500,500);
 		enemigos.removeAll(enemigos);
 		Engine.fuegosArtificiales.removeAll(Engine.fuegosArtificiales);
 		IAGenerator.mainPlayer.getMotors().resetProgressMotors();
-		Main.getVentana().resetRechargers();
+		GameHandler.getVentana().resetRechargers();
 		IAGenerator.mainPlayer.getCañon().resetBombas();
 		getInfoBombsPanel().getPaneles().removeAll(getInfoBombsPanel().getPaneles());
 		getInfoBombsPanel().removeAll();
@@ -303,8 +304,8 @@ Turret t = new Turret(500,500,500);
 				}
 			} else if ((vec.c.getGreen() == 0 && vec.c.getBlue() == 0 && vec.c.getRed() == 0)
 					|| (vec.c.getGreen() == 255 && vec.c.getBlue() == 255 && vec.c.getRed() == 255)) {
-				int h = (int) (Math.random() * 1000);
-				if (h < 10) {
+				float h = (float) (Math.random() );
+				if (h < Constants.probabilityOfItems) {
 					ih.addNewItem(dx + vec.x * Constants.sizeBlocks, dy + vec.y * Constants.sizeBlocks);
 				}
 			} else {
@@ -348,7 +349,7 @@ Turret t = new Turret(500,500,500);
 	public void triggerMessage(Graphics g, String mensaje) {
 		g.setFont(Constants.FONT);
 		g.setColor(Constants.colorBomb);
-		g.drawString(mensaje, 9 * Main.getVentana().screenSize.width / 16, 100);
+		g.drawString(mensaje, 9 * GameHandler.getVentana().screenSize.width / 16, 100);
 	}
 
 	public void pintarMenu(Graphics g) {
@@ -364,13 +365,13 @@ Turret t = new Turret(500,500,500);
 	public void showBuildMessage(String message, Graphics g) {
 		g.setFont(Constants.FONT);
 		g.setColor(new Color(153, 0, 0));
-		g.drawString(message, Main.getVentana().screenSize.width - 400, 250);
+		g.drawString(message, GameHandler.getVentana().screenSize.width - 400, 250);
 	}
 
 	public void showMode(String mode, Graphics g) {
 		g.setFont(Constants.FONT.deriveFont(22f));
 		g.setColor(new Color(153, 153, 153));
-		g.drawString(mode, 5 * Main.getVentana().screenSize.width / 8, 50);
+		g.drawString(mode, 5 * GameHandler.getVentana().screenSize.width / 8, 50);
 	}
 
 	public void showInformation(Graphics g) {
@@ -378,11 +379,11 @@ Turret t = new Turret(500,500,500);
 		g.setColor(new Color(153, 153, 153));
 
 		g.drawString("P (" + (int) IAGenerator.mainPlayer.getX() + "," + (int) IAGenerator.mainPlayer.getY() + ")", 10,
-				Main.getVentana().screenSize.height - 20);
+				GameHandler.getVentana().screenSize.height - 20);
 		g.drawString(
 				"V (" + (int) ((IAGenerator.mainPlayer.getVx() * 100)) / 100f + ","
 						+ (int) ((IAGenerator.mainPlayer.getVy() * 100)) / 100f + ")",
-				10, Main.getVentana().screenSize.height - 40);
+				10, GameHandler.getVentana().screenSize.height - 40);
 		long s = ladrillos.size() + IAGenerator.characters.size() + estrellas.size()
 				+ getItemsHandler().getItems().size() + ladrillosMapa.size() + enemigos.size() + enemigosMapa.size()
 				+ getItemStore().getSlots().size();
@@ -396,7 +397,7 @@ Turret t = new Turret(500,500,500);
 		for (FuegoArtificial fa : Engine.fuegosArtificiales) {
 			s += fa.particulas.size();
 		}
-		g.drawString("Simple objects to render: " + s, 10, Main.getVentana().screenSize.height - 80);
+		g.drawString("Simple objects to render: " + s, 10, GameHandler.getVentana().screenSize.height - 80);
 		long d = ladrillos.size() * 6 + IAGenerator.characters.size() + estrellas.size()
 				+ getItemsHandler().getItems().size() + ladrillosMapa.size() + enemigos.size() * 3 + enemigosMapa.size()
 				+ getItemStore().getSlots().size();
@@ -410,10 +411,10 @@ Turret t = new Turret(500,500,500);
 		for (FuegoArtificial fa : Engine.fuegosArtificiales) {
 			d += fa.particulas.size();
 		}
-		g.drawString("Complex objects to render: " + d, 10, Main.getVentana().screenSize.height - 100);
+		g.drawString("Complex objects to render: " + d, 10, GameHandler.getVentana().screenSize.height - 100);
 		totalObjectsRendered += s;
 
-		g.drawString("Total objects rendered: " + totalObjectsRendered, 10, Main.getVentana().screenSize.height - 120);
+		g.drawString("Total objects rendered: " + totalObjectsRendered, 10, GameHandler.getVentana().screenSize.height - 120);
 	}
 
 	public void refreshFps(Graphics g) {

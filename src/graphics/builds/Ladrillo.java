@@ -11,7 +11,7 @@ import graphics.shooting.Bala;
 import gui.HealthPanel;
 import ia.IAGenerator;
 import ia.Player;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Ventana;
 import mapGenerator.Vec2;
 
@@ -65,12 +65,12 @@ public class Ladrillo {
 		this.visible = visible;
 
 		if (visible) {
-			Main.getVentana().getPanelActual().add(hp);
-			Main.getVentana().getPanelActual().updateUI();
+			GameHandler.getVentana().getPanelActual().add(hp);
+			GameHandler.getVentana().getPanelActual().updateUI();
 			initialCounter = System.currentTimeMillis();
 		} else {
-			Main.getVentana().getPanelActual().remove(hp);
-			Main.getVentana().getPanelActual().updateUI();
+			GameHandler.getVentana().getPanelActual().remove(hp);
+			GameHandler.getVentana().getPanelActual().updateUI();
 		}
 
 		initializeProgress = true;
@@ -122,9 +122,9 @@ public class Ladrillo {
 					(int) (this.ancho / 10.0f));
 		}
 		// if (initializeProgress) {
-		// Main.getVentana().getPanelActual().add(hp);
+		// GameHandler.getVentana().getPanelActual().add(hp);
 		//
-		// Main.getVentana().getPanelActual().updateUI();
+		// GameHandler.getVentana().getPanelActual().updateUI();
 		// initializeProgress = false;
 		//
 		// }
@@ -137,7 +137,7 @@ public class Ladrillo {
 			}
 			hp.editLocationLadrillo((int) (-IAGenerator.mainPlayer.getX() + this.x),
 					(int) (-IAGenerator.mainPlayer.getY() + this.y));
-			Main.getVentana().getPanelActual().updateUI();
+			GameHandler.getVentana().getPanelActual().updateUI();
 
 		}
 	}

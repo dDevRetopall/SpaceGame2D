@@ -13,9 +13,9 @@ public class GameThread implements Runnable {
 	public void run() {
 		while (running) {
 			synchronized (this) {
-				if (Main.getVentana() != null) {
-					if (Main.getVentana().getPanelActual() != null) {
-						
+				if (GameHandler.getVentana() != null) {
+					if (GameHandler.getVentana().getPanelActual() != null) {
+					
 						panel.repaint();
 						
 					

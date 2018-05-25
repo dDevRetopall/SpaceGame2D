@@ -16,7 +16,7 @@ import graphics.shooting.Bala;
 import graphics.shooting.Bomba;
 import ia.Engine;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Ventana;
 import vector.GraphicalUtils;
 import vector.OperacionesVectores;
@@ -53,7 +53,7 @@ public class Cañon {
 		
 		
 		Vector r2 = OperacionesVectores.resize(r, 100);
-		if(Main.getVentana().getPanelActual().getPanelLife().getShieldBar().getValue()>0) {
+		if(GameHandler.getVentana().getPanelActual().getPanelLife().getShieldBar().getValue()>0) {
 		Paint paint = new RadialGradientPaint((int)(x1 +r2.getX()),
 				(int)(y1-r2.getY()), radio, Constants.FRACTIONS, Constants.BLUE);
 		g2.setPaint(paint);

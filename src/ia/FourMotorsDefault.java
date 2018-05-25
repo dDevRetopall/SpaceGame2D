@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import gui.ProgressBar;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import juegoEspacio.Status;
 
 public class FourMotorsDefault {
@@ -156,10 +156,10 @@ public class FourMotorsDefault {
 	}
 
 	public void resetProgressMotors() {
-		Main.getVentana().getPanelActual().remove(Status.pStatus);
-		Main.getVentana().getPanelActual().updateUI();
+		GameHandler.getVentana().getPanelActual().remove(Status.pStatus);
+		GameHandler.getVentana().getPanelActual().updateUI();
 		Status.initStatus();
-		Main.getVentana().getPanelActual().add(Status.pStatus);
+		GameHandler.getVentana().getPanelActual().add(Status.pStatus);
 
 	}
 

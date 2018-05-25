@@ -19,6 +19,7 @@ import constants.Constants;
 import constants.FileConstants;
 import ia.IAGenerator;
 import ia.Player;
+import proposiciones.ItemId;
 import utils.imageUtils.ImageUtils;
 
 public class Item {
@@ -41,14 +42,11 @@ public class Item {
 		this.width = width;
 		this.height = height;
 		this.id = id;
-		BufferedImage bf = iu.getBufferedImage(s);
-		try {
-			initialImage = ImageIO.read(new File(s));
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		i = ImageUtils.scale(bf, width, height);
+		ItemId ii=InfoStore.getItems().get(id);
+		i =ii.getImage();
+		initialImage=ii.getInitialImage();
+		
+		
 
 	}
 
@@ -109,6 +107,22 @@ public class Item {
 		} else {
 			return false;
 		}
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public int getId() {

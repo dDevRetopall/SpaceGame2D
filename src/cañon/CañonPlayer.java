@@ -9,7 +9,7 @@ import graphics.fireworks.Punto;
 import graphics.shooting.Bala;
 import graphics.shooting.Bomba;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import vector.OperacionesVectores;
 import vector.Vector;
 
@@ -47,7 +47,7 @@ public class CañonPlayer extends Cañon {
 					IAGenerator.mainPlayer.realYPlayerCoordinate + IAGenerator.mainPlayer.getHeight() / 2,
 					IAGenerator.mainPlayer.getWidth(), IAGenerator.mainPlayer.getHeight(), 0, 0));
 		} else {
-			Main.getVentana().getPanelActual().changeMessage("Limite debombas alcanzadas");
+			GameHandler.getVentana().getPanelActual().changeMessage("Limite debombas alcanzadas");
 			System.out.println("Limite de bombas alcanzadas");
 		}
 	}
@@ -70,10 +70,10 @@ public class CañonPlayer extends Cañon {
 				bombasDetonadas.add(b);
 				int xP = IAGenerator.mainPlayer.realXPlayerCoordinate + IAGenerator.mainPlayer.getWidth() / 2;
 				int yP = IAGenerator.mainPlayer.realYPlayerCoordinate + IAGenerator.mainPlayer.getHeight() / 2;
-				Main.getVentana().getPanelActual().getPanelLife().makeDamage(80,
+				GameHandler.getVentana().getPanelActual().getPanelLife().makeDamage(80,
 						new FuegoArtificial(xP, yP, Constants.colorBomb));
 			}
-			// for(Ladrillo l :Main.getVentana().getPanelActual().ladrillos) {
+			// for(Ladrillo l :GameHandler.getVentana().getPanelActual().ladrillos) {
 			// if(b.checkChoqueConLadrillo(l)) {
 			// bombasDetonadas.add(b);
 			// l.getHp().quitHealth(100);
@@ -110,8 +110,8 @@ public class CañonPlayer extends Cañon {
 
 	public void resetBombas() {
 		for (Bomba b : bombas) {
-			Main.getVentana().getPanelActual().remove(b.getProgressBarPanel());
-			Main.getVentana().getPanelActual().updateUI();
+			GameHandler.getVentana().getPanelActual().remove(b.getProgressBarPanel());
+			GameHandler.getVentana().getPanelActual().updateUI();
 
 		}
 

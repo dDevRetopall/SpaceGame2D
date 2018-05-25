@@ -55,7 +55,7 @@ botiquin{
 id=4;
 incrementShield=0;
 incrementHealth=100;
-probability=0.95;
+probability=0.20;
 path=botiquin.png;
 countDown=10000;
 width=60;

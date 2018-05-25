@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 import constants.Constants;
 import constants.FileConstants;
 import ia.IAGenerator;
-import juegoEspacio.Main;
+import juegoEspacio.GameHandler;
 import proposiciones.ItemId;
 import utils.imageUtils.ImageUtils;
 
@@ -63,7 +63,7 @@ public class ImageItem {
 			}
 			if (IAGenerator.mainPlayer.getVx() != 0 || IAGenerator.mainPlayer.getVy() != 0) {
 				counting = false;
-				Main.getVentana().getPanelActual().changeMessage("Don´t move to use an item");
+				GameHandler.getVentana().getPanelActual().changeMessage("Don´t move to use an item");
 			}
 		} else {
 
@@ -76,9 +76,9 @@ public class ImageItem {
 				} else {
 					counting = false;
 				
-					Main.getVentana().getPanelActual().getItemStore().slotsToRemove.add(this);
+					GameHandler.getVentana().getPanelActual().getItemStore().slotsToRemove.add(this);
 					carryOutFunctions();
-					Main.getVentana().getPanelActual().getItemStore().putMessageToUse = false;
+					GameHandler.getVentana().getPanelActual().getItemStore().putMessageToUse = false;
 				}
 			}
 		}
@@ -121,10 +121,10 @@ public class ImageItem {
 	public void carryOutFunctions() {
 		ItemId ii = InfoStore.items.get(id);
 		if (ii.getHealthIncreaseValue() > 0) {
-			Main.getVentana().getPanelActual().getPanelLife().getHealthBar().addHealth(ii.getHealthIncreaseValue());
+			GameHandler.getVentana().getPanelActual().getPanelLife().getHealthBar().addHealth(ii.getHealthIncreaseValue());
 		}
 		if (ii.getShieldIncreaseValue() > 0) {
-			Main.getVentana().getPanelActual().getPanelLife().getShieldBar().addHealth(ii.getShieldIncreaseValue());
+			GameHandler.getVentana().getPanelActual().getPanelLife().getShieldBar().addHealth(ii.getShieldIncreaseValue());
 		}
 
 	}
@@ -135,13 +135,13 @@ public class ImageItem {
 		timeInMillies = ii.getCountDown();
 		boolean or = false;
 		if (ii.getShieldIncreaseValue() > 0) {
-			if (Main.getVentana().getPanelActual().getPanelLife().getShieldBar()
+			if (GameHandler.getVentana().getPanelActual().getPanelLife().getShieldBar()
 					.canMakeHealth(ii.getShieldIncreaseValue())) {
 				or = true;
 			}
 		}
 		if (ii.getHealthIncreaseValue() > 0) {
-			if (Main.getVentana().getPanelActual().getPanelLife().getHealthBar()
+			if (GameHandler.getVentana().getPanelActual().getPanelLife().getHealthBar()
 					.canMakeHealth(ii.getHealthIncreaseValue())) {
 				or = true;
 			}
