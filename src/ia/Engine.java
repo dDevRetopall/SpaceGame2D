@@ -54,6 +54,7 @@ public class Engine {
 					if (l.choca(IAGenerator.mainPlayer)) {
 						if (l instanceof SalidaKey) {
 							if (!IAGenerator.mainPlayer.completed) {
+								GameHandler.getVentana().building=false;
 								xP = IAGenerator.mainPlayer.realXPlayerCoordinate
 										+ IAGenerator.mainPlayer.getWidth() / 2;
 								yP = IAGenerator.mainPlayer.realYPlayerCoordinate

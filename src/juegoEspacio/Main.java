@@ -32,10 +32,12 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-	
+		if(Constants.startDirectlyGame) {
+		GameHandler.startGame();
+		}else {
 		sl= new SettingsLauncher();
 		sl.setVisible(true);
-		
+		}
 		
 
 		

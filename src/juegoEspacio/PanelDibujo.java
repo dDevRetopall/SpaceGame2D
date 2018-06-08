@@ -53,6 +53,7 @@ import mapGenerator.ColorUtils;
 import mapGenerator.GeneratorTools;
 import mapGenerator.Vec2;
 import turret.Turret;
+import utils.gui.ButtonGenerator;
 import utils.imageUtils.ImageUtils;
 import utils.imageUtils.Pixel;
 import vector.OperacionesVectores;
@@ -72,7 +73,7 @@ public class PanelDibujo extends JPanel {
 	public ArrayList<LadrilloConColision> ladrillosIniciales = new ArrayList<>();
 	public ArrayList<Enemigo> enemigos = new ArrayList<>();
 	public HashMap<Enemigo, Vec2> enemigosMapa = new HashMap<>();
-	Button b;
+	Button b,b1,b2,b3,b4;
 	SalidaKey key;
 	PanelLife pf;
 	boolean restarting = false;
@@ -90,6 +91,7 @@ public class PanelDibujo extends JPanel {
 	Map map;
 	String statusMessage = "Starting";
 Turret t = new Turret(500,500,500);
+Button[]buttons;
 	public PanelDibujo(Color c) {
 	
 		t.setup();
@@ -99,9 +101,11 @@ Turret t = new Turret(500,500,500);
 		pf = new PanelLife();
 		bp = new BuildPanel();
 		is = new ItemsStore();
-		b = new Button(200, Ventana.screenSize.height - 450);
+		buttons=ButtonGenerator.createButtons();
+	
 		//temporal
 		this.add(bp);
+		this.add(pf);
 		try {
 			i = ImageIO.read(new File("assets/images/wallpaper.jpg"));
 			i2 = new ImageIcon("assets/animations/loading.gif").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -118,8 +122,15 @@ Turret t = new Turret(500,500,500);
 		Status.initStatus();
 
 		this.add(ib);
-		this.add(pf);
-		this.add(b);
+		
+		for(Button b:buttons) {
+			this.add(b);
+		}
+		
+
+
+		
+		
 		this.add(Status.pStatus);
 
 		map = new Map();
@@ -183,10 +194,10 @@ Turret t = new Turret(500,500,500);
 		ih.renderItems(g);
 		is.render(g);
 		if (GameHandler.getVentana().building) {
-			showBuildMessage("Press Q to deactivate building mode - BETA", g);
+			showBuildMessage("Press Q to deactivate building mode - NEW", g);
 			showMode("Building mode", g);
 		} else {
-			showBuildMessage("Press Q to activate building mode - BETA", g);
+			showBuildMessage("Press Q to activate building mode - NEW", g);
 			showMode("Attack mode", g);
 		}
 
@@ -194,29 +205,32 @@ Turret t = new Turret(500,500,500);
 			showInformation(g);
 		}
 		
+	
+		if (System.currentTimeMillis() - changeMessageTime <= Constants.durationOfWarnings) {
+			triggerMessage(g, mensaje);
+		}
 		if (IAGenerator.mainPlayer.muerto) {
 			IAGenerator.mainPlayer.getCañon().resetBombas();
 			IAGenerator.mainPlayer.putMenu(g, "Has muerto");
-			b.setVisible(true);
+			setVisibleButtons(true);
+			
+		
 
 		} else {
-			b.setVisible(false);
+			setVisibleButtons(false);
 			GameHandler.getVentana().requestFocus();
 		}
 		if (IAGenerator.mainPlayer.completed) {
-			IAGenerator.mainPlayer.putMenu(g, "Has pasado el nivel. Felicidades");
-			b.setVisible(true);
+			IAGenerator.mainPlayer.putMenu(g, "Has pasado el nivel!");
+			setVisibleButtons(true);
 
 		} else if (!IAGenerator.mainPlayer.muerto) {
 
-			b.setVisible(false);
+			setVisibleButtons(false);
 			GameHandler.getVentana().requestFocus();
 		} else {
 			GameHandler.getVentana().building = false;
 			GameHandler.getVentana().requestFocus();
-		}
-		if (System.currentTimeMillis() - changeMessageTime <= Constants.durationOfWarnings) {
-			triggerMessage(g, mensaje);
 		}
 		super.paintChildren(g);
 		try {
@@ -225,6 +239,8 @@ Turret t = new Turret(500,500,500);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+		
 	}
 
 	public void resetElements() {
@@ -243,7 +259,8 @@ Turret t = new Turret(500,500,500);
 		IAGenerator.mainPlayer.getCañon().resetBombas();
 		getInfoBombsPanel().getPaneles().removeAll(getInfoBombsPanel().getPaneles());
 		getInfoBombsPanel().removeAll();
-
+		this.add(pf);
+		this.updateUI();
 		is = new ItemsStore();
 		restarting = false;
 
@@ -440,6 +457,19 @@ Turret t = new Turret(500,500,500);
 			e.mover(-(IAGenerator.mainPlayer.getVx()) / 2.0f, -((IAGenerator.mainPlayer.getVy()) / 2.0f));
 			e.dibujar(g);
 		}
+	}
+	public void setVisibleButtons(boolean resp) {
+		
+		for(Button b:buttons) {
+			b.setVisible(resp);
+		}
+		if(resp) {
+			this.remove(pf);
+			this.updateUI();
+		}
+	
+		
+
 	}
 
 	public PanelLife getPanelLife() {

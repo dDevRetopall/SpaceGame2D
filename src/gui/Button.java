@@ -13,43 +13,48 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 import constants.Constants;
 import ia.IAGenerator;
 import juegoEspacio.GameHandler;
 import juegoEspacio.PanelDibujo;
 
-public class Button extends JButton {
+public abstract class Button extends JButton {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	BufferedImage i;
 	private int x2;
 	private int y2;
 	BufferedImage bi;
 	ImageIcon ic, ic2;
 
-	public Button(int x, int y) {
+	public Button(int x, int y,String f,String text) {
 		this.setVisible(false);
-		BufferedImage img;
-		try {
-			img = ImageIO.read(new File(Constants.imagesPath+"button.jpg"));
-			int w = img.getWidth(null);
-			int h = img.getHeight(null);
-			bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ic = new ImageIcon(Constants.imagesPath+"button.jpg");
-		ic2 = new ImageIcon(Constants.imagesPath+"button2.png");
-		this.setIcon(ic);
-	
-	
-
-		this.setBorderPainted(false);
-		this.setFocusPainted(false);
+		this.setOpaque(true);
+		this.setBorder(new MatteBorder(2,2,2,2,Color.black));
 		this.setContentAreaFilled(false);
+		Image i;
+		try {
+			i = ImageIO.read(new File(f));
+			i=i.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			ImageIcon ii = new ImageIcon(i);
+			
+		
+			this.setIcon(ii);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	
-		this.setSize(ic.getIconWidth(), ic.getIconHeight());
+	
+		this.setFont(Constants.FONT);
+		this.setText("  "+text);
+		this.setSize(150,75);
 		this.setLocation(x, y);
 		
 		this.addMouseListener(new MouseListener() {
@@ -63,25 +68,18 @@ public class Button extends JButton {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				
-				IAGenerator.characters.remove(IAGenerator.mainPlayer);
-				
-				GameHandler.getVentana().getPanelActual().resetElements();
-				GameHandler.getVentana().getPanelActual().inicializarPartida();
-				GameHandler.getVentana().getPanelActual().getPanelLife().restart();
-				GameHandler.getVentana().requestFocus();
-				
+				doAction();
 				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				Button.this.setIcon(ic);
-
+				Button.this.setBorder(new MatteBorder(2,2,2,2,Color.black));
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				Button.this.setIcon(ic2);
+				Button.this.setBorder(new MatteBorder(2,2,2,2,Color.gray));
 			}
 
 			@Override
@@ -91,5 +89,7 @@ public class Button extends JButton {
 			}
 		});
 	}
-
+	public abstract void doAction();
+		
+	
 }

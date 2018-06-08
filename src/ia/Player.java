@@ -163,11 +163,11 @@ public class Player {
 		int heightTexto = fm.getHeight();
 
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, Ventana.centroYPantalla + 150 + heightTexto / 2 - 100, Ventana.screenSize.width,
-				heightTexto + 100);
+		g.fillRect(0, Ventana.centroYPantalla*2-  heightTexto / 2 - 120 , Ventana.screenSize.width,
+				heightTexto + 120);
 
-		g.setColor(Color.WHITE);
-		g.drawString(texto, Ventana.centroXPantalla - widthTexto / 2, Ventana.centroYPantalla + heightTexto / 2 + 150);
+		g.setColor(Color.gray);
+		g.drawString(texto, Ventana.centroXPantalla - widthTexto / 2, Ventana.centroYPantalla*2-70);
 
 	}
 

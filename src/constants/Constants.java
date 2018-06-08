@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Constants {
-	public static final boolean startDirectlyGame=false;
+	public static final boolean startDirectlyGame=true;
 	
 	//Files
 	public static String resources = "assets/files/resources.dbg";

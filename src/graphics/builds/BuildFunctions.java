@@ -42,8 +42,8 @@ public class BuildFunctions {
 				} else {
 					GameHandler.getVentana().getPanelActual().ladrillos.add(new LadrilloConColision(resX * Constants.sizeBlocks, resY * Constants.sizeBlocks,
 							Color.GRAY, true, new Vec2(resX, resY, Color.GRAY, false)));
-					GameHandler.getVentana().getPanelActual().ladrillosMapa.set(resY * (Constants.widthMap) + resX,
-							GameHandler.getVentana().getPanelActual().ladrillos.get(GameHandler.getVentana().getPanelActual().ladrillos.size() - 1).getInitialVector());
+//					GameHandler.getVentana().getPanelActual().ladrillosMapa.set(resY * (Constants.widthMap) + resX,
+//							GameHandler.getVentana().getPanelActual().ladrillos.get(GameHandler.getVentana().getPanelActual().ladrillos.size() - 1).getInitialVector());
 
 				}
 

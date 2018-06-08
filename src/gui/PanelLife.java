@@ -91,6 +91,7 @@ public class PanelLife extends JPanel {
 	}
 
 	public void restart() {
+	
 		pb.editValue(100);
 		pb2.editValue(0);
 	}

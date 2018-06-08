@@ -3,6 +3,7 @@ package juegoEspacio;
 import java.util.ArrayList;
 
 import constants.Constants;
+import ia.IAGenerator;
 import items.InfoStore;
 import launcher.SettingsLauncher;
 import proposiciones.ItemId;
@@ -11,7 +12,7 @@ import utils.dataUtils.FileUtils;
 public class GameHandler {
 	static Ventana v;
 	public static void startGame() {
-		
+		System.out.println("Initializing game");
 		System.out.println("Opening assets");
 		System.out.println("Starting sounds");
 		//SoundHandler.createNewSound("assets/sounds/df.wav");
@@ -54,6 +55,18 @@ public class GameHandler {
 		return v;
 	}
 	public static void stopGame() {
+		System.out.println("Stoping game");
+		v.dispose();
 		
+	}
+	public static void resetGame() {
+		System.out.println("Reseting game");
+		IAGenerator.characters.remove(IAGenerator.mainPlayer);
+		
+		GameHandler.getVentana().getPanelActual().resetElements();
+		GameHandler.getVentana().getPanelActual().inicializarPartida();
+		GameHandler.getVentana().getPanelActual().getPanelLife().restart();
+		GameHandler.getVentana().requestFocus();
+
 	}
 }
