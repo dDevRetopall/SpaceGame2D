@@ -20,7 +20,7 @@ public class GameHandler {
 		//ImageUtils.getBeam("beams.png", 1);
 //		ImageUtils.f.dispose();
 		System.out.println("Reading files");
-		System.out.println("Reading data file");
+//		System.out.println("Reading data file");
 		ArrayList<ItemId>items=FileUtils.readData(Constants.data);
 		System.out.println("Reading resources");
 		ArrayList<ItemId>items2=FileUtils.readData(Constants.resources);

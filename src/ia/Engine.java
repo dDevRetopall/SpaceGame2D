@@ -1,6 +1,7 @@
 package ia;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ public class Engine {
 	public static int xP;
 	public static int yP = 0;
 	static Timer timer;
-
 	static TimerTask task;
 
 	public static void renderWalls(Graphics g) {

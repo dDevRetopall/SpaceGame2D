@@ -104,7 +104,9 @@ Button[]buttons;
 		buttons=ButtonGenerator.createButtons();
 	
 		//temporal
+		if(Constants.getGamemode()==1) {
 		this.add(bp);
+		}
 		this.add(pf);
 		try {
 			i = ImageIO.read(new File("assets/images/wallpaper.jpg"));
@@ -120,8 +122,10 @@ Button[]buttons;
 
 	public void init() {
 		Status.initStatus();
-
-		this.add(ib);
+		if(Constants.getGamemode()==1) {
+			this.add(ib);
+		}
+		
 		
 		for(Button b:buttons) {
 			this.add(b);
@@ -193,6 +197,7 @@ Button[]buttons;
 
 		ih.renderItems(g);
 		is.render(g);
+		if(Constants.getGamemode()==1) {
 		if (GameHandler.getVentana().building) {
 			showBuildMessage("Press Q to deactivate building mode - NEW", g);
 			showMode("Building mode", g);
@@ -200,7 +205,7 @@ Button[]buttons;
 			showBuildMessage("Press Q to activate building mode - NEW", g);
 			showMode("Attack mode", g);
 		}
-
+		}
 		if (Constants.showInfo) {
 			showInformation(g);
 		}
@@ -443,9 +448,9 @@ Button[]buttons;
 			fps = 0;
 		}
 
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial", Font.BOLD, 24));
-		g.drawString("Space game. Made by Diego Berrocal", 400, 50);
+		g.setColor(Color.gray);
+		g.setFont(new Font("Arial", Font.BOLD, 20));
+		g.drawString("Spacenite. DBApplications", 400, 50);
 		g.setFont(new Font("Arial", Font.PLAIN, 24));
 
 		g.drawString(fpsDefinitivos + " FPS", 3 * Ventana.screenSize.width / 4, 50);

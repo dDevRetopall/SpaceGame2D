@@ -14,15 +14,17 @@ import proposiciones.ItemId;
 import utils.dataUtils.FileUtils;
 import utils.imageUtils.ImageUtils;
 import utils.soundSystem.SoundHandler;
+import webServiceRequest.LoginWindow;
 
 public class Main {
-	static SettingsLauncher sl ;
+	static SettingsLauncher sl;
+
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			
-			UIManager.put("ProgressBar.selectionForeground", new Color(0,0,153));
-			UIManager.put("ProgressBar.selectionBackground", new Color(0,0,153));
+
+			UIManager.put("ProgressBar.selectionForeground", new Color(0, 0, 153));
+			UIManager.put("ProgressBar.selectionBackground", new Color(0, 0, 153));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -30,24 +32,20 @@ public class Main {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
+			
 			e.printStackTrace();
 		}
-		if(Constants.startDirectlyGame) {
-		GameHandler.startGame();
-		}else {
-		sl= new SettingsLauncher();
-		sl.setVisible(true);
-		}
-		
-
-		
-
-
-		
-		
+		initializeGame();
 
 	}
 
-	
+	public static void initializeGame() {
+		if (Constants.startDirectlyGame) {
+			GameHandler.startGame();
+		} else {
+			sl = new SettingsLauncher();
+			sl.setVisible(true);
+		}
+	}
 
 }

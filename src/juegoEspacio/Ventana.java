@@ -278,7 +278,7 @@ public class Ventana extends JFrame {
 
 						}
 						if (e.getKeyCode() == KeyEvent.VK_Q) {
-
+							if(Constants.getGamemode()==1) {
 							if (building) {
 								GameHandler.getVentana().getPanelActual().remove(GameHandler.getVentana().getPanelActual().bp);
 								building = false;
@@ -287,6 +287,7 @@ public class Ventana extends JFrame {
 								building = true;
 							}
 							GameHandler.getVentana().getPanelActual().updateUI();
+							}
 
 						}
 						if (e.getKeyCode() == KeyEvent.VK_R) {
